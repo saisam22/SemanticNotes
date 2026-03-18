@@ -1,21 +1,20 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
-    const [loading, setLoading] = useState(true);
+// eslint-disable-next-line react-refresh/only-export-components
+export function useAuth() {
+    return useContext(AuthContext);
+}
 
-    useEffect(() => {
-        const storedToken = localStorage.getItem('snf_token');
-        const storedUser = localStorage.getItem('snf_user');
-        if (storedToken && storedUser) {
-            setToken(storedToken);
-            setUser(JSON.parse(storedUser));
-        }
-        setLoading(false);
-    }, []);
+export function AuthProvider({ children }) {
+    const [user, setUser] = useState(() => {
+        const stored = localStorage.getItem('snf_user');
+        return stored ? JSON.parse(stored) : null;
+    });
+    const [token, setToken] = useState(() => {
+        return localStorage.getItem('snf_token') || null;
+    });
 
     const login = (tokenValue, userData) => {
         localStorage.setItem('snf_token', tokenValue);
@@ -32,12 +31,8 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!token, loading }}>
+        <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!token }}>
             {children}
         </AuthContext.Provider>
     );
-}
-
-export function useAuth() {
-    return useContext(AuthContext);
 }

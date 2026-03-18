@@ -36,7 +36,7 @@ export default function Dashboard() {
         try {
             const res = await api.get('/notes/tags');
             setTags(res.data.tags);
-        } catch { }
+        } catch { /* tags are non-critical */ }
     }, []);
 
     useEffect(() => {
