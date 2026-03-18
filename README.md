@@ -1,6 +1,6 @@
 # ✦ Semantic Note Finder
 
-![CI](https://github.com/saisam22/semantic-note-finder/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/saisam22/SemanticNotes/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node](https://img.shields.io/badge/node-20+-green.svg)
 ![Docker](https://img.shields.io/badge/docker-compose-2496ED.svg)
